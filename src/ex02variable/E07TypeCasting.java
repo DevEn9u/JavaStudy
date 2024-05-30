@@ -49,7 +49,7 @@ public class E07TypeCasting {
 		
 		/*
 		 * 문자는 메모리에 저장시 ASCII 코드로 저장되므로 int와의 연산을 진행한 후 
-		   문자로 푯기하고 싶다면 char형으로 강제 형변환하면 된다.
+		   문자로 표시하고 싶다면 char형으로 강제 형변환하면 된다.
 		 */
 		char ch3 = 'A', ch4;
 		int num4 = 2;
