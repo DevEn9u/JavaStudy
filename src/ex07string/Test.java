@@ -6,5 +6,6 @@ public class Test {
 		
 		System.out.println("1. 학원에서 push");
 		
+		System.out.println("3. 학원에서 수업");
 	}
 }
