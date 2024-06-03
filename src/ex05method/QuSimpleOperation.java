@@ -37,7 +37,6 @@ public class QuSimpleOperation {
 		System.out.println("나눗셈 몫: " + div);
 		int remain = num1 % num2;
 		System.out.println("나눗셈 몫: " + remain);
-		
+	
 	}
-
 }

@@ -11,16 +11,13 @@ package ex05method;
 public class QuFindPrimeNumber {
 
 	public static void main(String[] args) {
-		int n, cnt, i;
-		for(n = 2; n <= 100; n++) {
-			cnt = 0;
-			for(i = 2; i < n; i++) {
-				if(n % i == 0) {
-					cnt += 1;
-				}
-				if(cnt == 0) {
-					System.out.println(n + "는 소수입니다.");
-				}
+		// 1 ~ 100까지의 정수 중 소수인지 판단하기 위해 반복 호출
+		for(int i = 2; i <= 100; i++) {
+			// 소수인지 판단하여 boolean을 return
+			boolean result = isPrimeNumber(i);
+			// 소수인 경우에만 콘솔 출력
+			if(result == true) {
+				System.out.printf(i + "은/는 소수입니다. %n");
 			}
 		}
 	}
@@ -29,13 +26,7 @@ public class QuFindPrimeNumber {
 		if (n <= 1) return false;
 		for(int i = 2; i < n; i++) {
 			if(n % i == 0) return false;
-		}
-		for (int i = 2; i <= 100; i++) {
-			System.out.printf("%d" , n);			
-		}
-		
+		}		
 		return true;
-	}
-	
-	
+	}	
 }

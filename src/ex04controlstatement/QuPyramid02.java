@@ -22,7 +22,6 @@ public class QuPyramid02 {
 			} while(j < 6);
 			System.out.println();
 		}
-		while(i < 5);
-		
+		while(i < 5);	
 	}
 }

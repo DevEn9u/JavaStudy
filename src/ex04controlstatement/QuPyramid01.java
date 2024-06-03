@@ -25,5 +25,4 @@ public class QuPyramid01 {
 			i++;
 		}
 	}
-
 }

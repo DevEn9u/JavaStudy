@@ -22,8 +22,5 @@ public class QuPyramid03 {
 			}
 			System.out.println();
 		}
-
-		
 	}
-
 }
