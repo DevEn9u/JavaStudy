@@ -19,7 +19,7 @@ public class E02ArrayAndMethod {
 		}
 		System.out.println();
 		/*
-		 * 배열명을 출력하면 메모리의 주소값이 문자열 혈태로 출력된다.
+		 * 배열명을 출력하면 메모리의 주소값이 문자열 형태로 출력된다.
 		 * 즉 배열명은 배열에 저장된 값 자체가 아닌 Heap 영역에 생성된 메모리의 주소값을 저장하게 된다.
 		 */
 		System.out.println("arr변수: " + arr);
