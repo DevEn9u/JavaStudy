@@ -15,6 +15,7 @@ class Car {
 class HybridCar extends Car {
 	int electric;
 	
+	// HybridCar 클래스의 생성자
 	public HybridCar(int gasoline, int electric) {
 		super(gasoline);
 		this.electric = electric;
@@ -23,6 +24,7 @@ class HybridCar extends Car {
 class HybridWaterCar extends HybridCar {
 	int water;
 
+	// HybridWaterCar 클래스의 생성자
 	public HybridWaterCar(int gasoline, int electric, int water) {
 		super(gasoline, electric);
 		this.water = water;

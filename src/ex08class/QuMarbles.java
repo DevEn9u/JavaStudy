@@ -23,18 +23,18 @@ class ChildProperty {
 		this.beads = beads;
 	}
 	
-	public void showProperty() {
+	void showProperty() {
 		System.out.println(beads);
 	}
 	
-	public void obtainBead(ChildProperty friend, int beads) {
+	void obtainBead(ChildProperty child, int beads) {
 		/*
 		 * 다른 Child 클래스의 구슬을 가져오는 조건문
 		 * 상대 클래스의 구슬 개수가 매개변수보다 많을때만 실행하고, 실행될 경우
 		   상대 클래스의 구슬 개수를 감소하고 자신의 구슬 개수를 증가시킨다.
 		 */
-		if (friend.beads >= beads) {
-			friend.beads -= beads;
+		if (child.beads >= beads) {
+			child.beads -= beads;
 			this.beads += beads;
 		} else {
 			System.out.println("구슬이 부족합니다.");
