@@ -1,13 +1,11 @@
 package ex15usefulclass;
 
-import java.util.Arrays;
-
 public class E01WrapperClass2 {
 
 	public static void main(String[] args) {
 
 		/*
-		 * pardeInt(): 숫자형식의 문자열을 정수로 변경한다.
+		 * parseInt(): 숫자형식의 문자열을 정수로 변경한다.
 		 * parseDouble(): 실수로 변경한다.
 		 */
 		String strNumber = "1000";
@@ -58,7 +56,7 @@ public class E01WrapperClass2 {
 		System.out.println(Character.isDigit('7') ? "숫자임" : "숫자아님");
 	
 		/*
-		 * isLetter(): 인자로 전달된 문자가 문자인지 여부를 판단하는메서드로
+		 * isLetter(): 인자로 전달된 문자가 문자인지 w여부를 판단하는메서드로
 		   특수기호나 숫자형일 때는 false를 반환한다.
 		 */
 		System.out.println("isLetter을 통한 숫자 판단");
