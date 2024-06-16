@@ -1,10 +1,6 @@
-package ex17collection;
+package ex16exception;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 
 // Friend, Univ, High클래스는 data 저장용
 
@@ -107,6 +103,7 @@ class UnivFriend extends Friend {
 
 // 메인클래스
 public class Ex07MyFriendInfoBook {
+
 	/*
 	 * 메뉴를 출력하는 용도의 메서드로 매개변수, 반환타입이 없는 형태로 정의한다.
 	 * main 메서드에서 직접 호출하기 위해 static으로 선언되어 있다.
@@ -121,6 +118,7 @@ public class Ex07MyFriendInfoBook {
 		System.out.print("6. 삭제 ");
 		System.out.println("7. 프로그램종료 ");
 		System.out.print("메뉴선택 >>>");
+
 	}
 
 	/*
@@ -134,6 +132,7 @@ public class Ex07MyFriendInfoBook {
 		Scanner scan = new Scanner(System.in);
 		// 기능을 담당하는 핸들러 클래스의 인스턴스 생성
 		FriendInfoHandler handler = new FriendInfoHandler(100);
+
 		/*
 		 * 무한루프로 사용자가 원할 때 종료할 수 있는 구조를 만들어준다.
 		   break문은 반복문을 탈출시키는 기능이 있으므로 이와 같은 무한루프에서
@@ -175,148 +174,190 @@ public class Ex07MyFriendInfoBook {
 } // class 끝
 
 /*
- * 해당 프로그램에서 기능을 담당하는 클래스로 '핸들러' 혹은 '매니저' 클래스라고
+ * 해당 프로그램에서 기능을 담당하는 클래스로 '핸들로' 혹은 '매니저' 클래스라고
    부른다.
  */
 class FriendInfoHandler {
-	
-//	private Friend[] myFriends;
-//	private int numOfFriends;
-	
+	// 멤버변수
 	/*
-	기존에 인스턴스 배열에 저장했던 것을 컬렉션으로 변경한다.
-	컬렉션은 제네릭을 기반으로 하므로 인스턴스 생성시 저장할 타입을 결정하게 된다.
-	여기서는 Friend 클래스를 상속한 HighFriend, UnivFriend를 저장할 것이므로
-	이와 같이 선언하면 된다.
+	 * 상속관계에서 부모클래스 인스턴스 배열을 생성한다.
+	 * 부모로 자식을 참조할 수 있으므로 부모타입의 배열에는 자식타입의 인스턴스를
+	   모두 저장할 수 있다.
 	 */
-	private ArrayList<Friend> lists;
+	private Friend[] myFriends;
+	/*
+	 * 배열에 저장된 연락처 정보를 카운트하기 위한 변수로, 추가할 때마다
+	   ++(증감연산자)로 1씩 증가시킨다.
+	 */
+	private int numOfFriends;
 	
+	// 생성자
 	public FriendInfoHandler(int num) {
-//		myFriends = new Friend[num];
-//		numOfFriends = 0;
-		// 생성자에서 정보를 저장할 List컬렉션을 생성한다.
-		lists = new ArrayList<Friend>();
+		// 정보저장을 위한 인스턴스 배열(Friend 타입)을 생성
+		myFriends = new Friend[num];
+		// 배열의 인덱스는 0부터 시작이므로 이와 같이 초기화
+		numOfFriends = 0;
 	}
-
+	
+	// 연락처 정보를 추가하기 위한 메서드
 	public void addFriend(int choice) {
+		// 고등 or 대학 모두 기본정보가 있으므로 먼저 입력받는다.
 		Scanner scan = new Scanner(System.in);
 		String iName, iPhone, iAddr, iNickname, iMajor;
 		System.out.print("이름: "); iName = scan.nextLine();
 		System.out.print("전화번호: "); iPhone = scan.nextLine();
 		System.out.print("주소: "); iAddr = scan.nextLine();
-
-		/*
-		 * List<E>는 자동 인덱싱이 지원되므로 인스턴스 추가를 위해 index변수를
-		   별도로 사용할 필요가 없다. 단지 add() 메서드를 통해 추가하면 된다.
-		 */
+		
+		// 입력선택에 따라 고등 혹은 대학친구로 분기하여 입력받는다.
 		if (choice == 1) {
+			// 고등친구인 경우 별명을 추가로 입력받은 후
 			System.out.print("별명: "); iNickname = scan.nextLine();
+			// High  인스턴스를 생성하고
 			HighFriend high = new HighFriend(iName, iPhone, iAddr, iNickname);
-//			myFriends[numOfFriends++] = high;
-			lists.add(high);
+			// Friend 타입의 인스턴스 배열에 추가한다.
+			myFriends[numOfFriends++] = high;
+			/*
+			 * 인덱스로 사용된 변수의 초기값이 0이므로, 0번 인덱스에 추가된 후
+			   1 증가한다. 이를 위해 후위증가 시키고 있다.
+			 */
 		}
 		else if (choice == 2) {
+			// 대학친구인 경우 전공을 추가로 입력받고..
 			System.out.print("전공: "); iMajor = scan.nextLine();
-//			myFriends[numOfFriends++] =
-//					new UnivFriend(iName, iPhone, iAddr, iMajor);
-			lists.add(new UnivFriend(iName, iPhone, iAddr, iMajor));
+			// 인스턴스 생성과 동시에 배열에 추가한다.
+			myFriends[numOfFriends++] =
+					new UnivFriend(iName, iPhone, iAddr, iMajor);
 		}
-
+		
 		System.out.println("친구정보 입력이 완료되었습니다.");
 	} /// end of addFriend
 	
-	// 전체 정보 출력 메서드
+	/*
+	 * 저장된 친구의 정보를 출력하기 위한 멤버메서드
+	 * 1) 친구정보를 추가할 때 High 혹은 Univ 인스턴스를 배열에 저장한다.
+	 * 2) 이때 인스턴스는 Friend로 자동 형변환(업캐스팅)되어 저장된다.
+	 * 3) 정보 출력시 배열에 입력된 개체수만큼 반복하여 각 인자를 통해
+	 *    정보를 출력한다.
+	 * 4) 출력을 위한 멤버메서드는 상속관계에서 오버라이딩되어 있으므로
+	 *    참조변수의 영향 없이 항상 자식 클래스에 오버라이딩된 메서드가
+	 *    호출된다.
+	 * 5) 즉 저장된 인스턴스는 Friend 타입이지만 오버라이딩을 통해 별도의
+	 *    형변환이 필요하지 않다. 항상 원하는 정보를 간단히 출력할 수 있다.
+	 */
+	
+	// 저장된 연락처의 간략정보(2가지)만 출력
 	public void showAllData() {
-		/* 일반 for문을 상요하는 경우 변수 i를 인덱스로 사용해야 하므로
-		   get()메서드를 통해 인스턴스를 인출한다.
-		 */
-		for(int i = 0; i < lists.size(); i++) {
-			lists.get(i).showAllData();
+		for(int i = 0; i < numOfFriends; i++) {
+			myFriends[i].showAllData();
 		}
 		System.out.println("==전체정보가 출력되었습니다.==");
 	}
 	public void showSimpleData() {
 		/*
-		 * 확장 for문은 인덱스를 사용하지 않으므로 간단히 인스턴스를
-		   인출할 수 있다.
-		 */
-		for(Friend fr : lists) {
-			fr.showBasicInfo();
+		 만약 부모클래스인 Friend에 showBasicInfo()를 정의하지 않았따면,
+		 자식 클래스에서는 오버라이딩을 할 수 없으므로 개별적인 메서드로
+		 정의해야 한다.
+		 정보가 저장되는 배열은 Friend 타입이므로 자식인스턴스를 저장하면
+		 자동으로 형변환(업캐스팅)된다. 이때 자식의 정보를 출력하는
+		 메서드를 바로 호출할 수 없으므로 아래와 같이 일일이 확인한 후
+		 강제형변환(다운캐스팅)해야 한다.
+		 또한 상속의 구조가 복잡해질수록 더 많은 조건식을 추가해야 한다.
+		 
+		for(int i = 0; i < numOfFriends; i++) {
+			if(myFriends[i] instanceof UnivFriend) {
+				((UnivFriend) myFriends[i]).showBasicInfo();
+			}
+			else if(myFriends[i] instanceof HighFriend) {
+				((HighFriend) myFriends[i]).showBasicInfo();	
+			}
 		}
+		 */
+		
+		/*
+		 * 오버라이딩을 이용하면 상속의 구조가 복잡해지더라도 아래와 같이
+		   출력문장 한 줄이면 간단하게 처리할 수 있다.
+		 */
+		for(int i = 0; i < numOfFriends; i++) {
+			myFriends[i].showBasicInfo();
+		}
+		
 		System.out.println("==간략정보가 출력되었습니다.==");
 	}
-
+	
+	// 연락처 정보 검색
 	public void searchInfo() {
+		// 검색결과 확인용
 		boolean isFind = false;
 		Scanner scan = new Scanner(System.in);
 		System.out.println("검색할 이름을 입력하세요.");
 		String searchName = scan.nextLine();
-
-		// for문을 이용한 방법
-		for(Friend fr : lists) {
-			if(searchName.equals(fr.name)) {
-				fr.showAllData();
-				System.out.println("**귀하가 요청하는 정보를 찾았습니다.**");
-				isFind = true;
-				break;
-			}
-			System.out.println();
-		}
 		
-		// Iterator 인스턴스 생성
-//		Iterator<Friend> itr = lists.iterator();
-//		while(itr.hasNext()) {
-//			// 저장된 인스턴스 인출
-//			Friend fr = itr.next();
-//			// 우리가 입력한 이름과 일치하는지 확인
-//			if(searchName.compareTo(fr.name) == 0) {
-//				// 일치하면 정보를 출력한다.
-//				fr.showAllData();
-//				System.out.println("**귀하가 요청하는 정보를 찾았습니다.**");
-//				isFind = true;
-//			}
-//		}
-//		
+		// 배열에 저장된 연락처의 개수만큼 반복
+		for (int i = 0; i < numOfFriends; i++) {
+			/*
+			 * 배열의 각 인덱스에 저장된 인스턴스의 참조값을 통해 멤버변수에
+			   접근한다. 검색을 위해 입력한 이름과 비교해서 일치하는 경우에는
+			   정보를 출력한다.
+			   compareTo 대신 equals를 사용해도 결과는 동일하다.
+			 */
+			if(searchName.compareTo(myFriends[i].name) == 0) {
+				myFriends[i].showAllData();
+				System.out.println("**귀하가 요청하는 정보를 찾았습니다.");
+				// 확인용 변수를 true로 변경
+				isFind = true;
+			}
+		}
 		if(isFind == false)
-			System.out.println("***찾는 정보가 없습니다.***");
+			System.out.println("찾는 정보가 없습니다.");
 	} ///// end of searchInfo
-			
-
+	
+	// 연락처 정보 삭제
 	public void deleteInfo() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("삭제할 이름을 입력하세요: ");
 		String deleteName = scan.nextLine();
-		
-		// 삭제된 인덱스가 없음을 의미
+		/*
+		 * 배열의 원소 중 삭제된 것의 인덱스값을 저장하기 위한 변수로
+		   삭제한 후 빈자리를 채워넣기 위해 사용된다. 인덱스는 0부터
+		   시작이므로 -1을 초기값으로 지정한다.
+		 */
 		int deleteIndex = -1;
-		// 확장for문을 통해 반복하여 삭제할 이름을 검색한다.
-//		for(Friend fr : lists) { 
-//			if(deleteName.compareTo(fr.name) == 0) {
-//				// 이름이 일치하면 삭제 처리한다.
-//				lists.remove(fr);
-//				deleteIndex = 1;
-//				break;
-//			}
-//		}
-		// Iterator 이용 방법
-		Iterator<Friend> itr = lists.iterator();
-		while(itr.hasNext()) {
-			// 저장된 인스턴스 인출
-			Friend fr = itr.next();
-			// 우리가 입력한 이름과 일치하는지 확인
-			if(deleteName.compareTo(fr.name) == 0) {
-				// 일치하면 정보를 출력한다.
-				lists.remove(fr);
-				System.out.println("**귀하가 요청하는 정보를 찾았습니다.**");
-				deleteIndex++;
+		
+		// 삭제할 인스턴스를 찾기 위해 반복
+		for(int i = 0; i < numOfFriends; i++) {
+			// 일치하는 이름이 있는지 확인, comparTo로 비교시 값이 같으면 0
+			if(deleteName.compareTo(myFriends[i].name) == 0) {
+				/*
+				 * 인스턴스 배열에서 삭제는 null값으로 변경하면 된다.
+				   참조값이 null이라는 것은 참조할 인스턴스가 없다는 의미로
+				   삭제한 것과 동일한 결과가 된다.
+				   실제로 참조되지 않는 인스턴스는 '가비지 컬렉션'에 의해
+				   자동으로 삭제된다.
+				 */
+				myFriends[i] = null;
+				// 삭제된 원소의 index를 저장한다.
+				deleteIndex = i;
+				// 전체 카운트를 1 차감한다.
+				numOfFriends--;
+				// 인스턴스를 삭제하면 즉시 반복문을 탈출한다.
 				break;
 			}
 		}
+		
 		if(deleteIndex == -1) {
 			System.out.println("==삭제된 데이터가 없습니다==");
 		}
 		else {
-			System.out.println("==데이터가 삭제되었습니다.==");
+			/*
+			 * 인스턴스 배열에서 원소를 삭제한 후 바로 뒷부분에 있는 원소를
+			   하나씩 앞으로 복사한다. 만약 이 부분이 처리되지 않으면
+			   차후 검색이나 출력시 NullPointerException이 발생할 수 있다.
+			 */
+			for(int i = deleteIndex; i < numOfFriends; i++) {
+				myFriends[i] = myFriends[i + 1];
+			}
+			System.out.println("==데이터(" + deleteIndex
+					+ "번)가 삭제되었습니다.==");
 			
 		}
 	}

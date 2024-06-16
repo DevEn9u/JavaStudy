@@ -10,9 +10,9 @@
  */
 package ex17collection;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Scanner;
 
 class Avengers {
@@ -29,8 +29,24 @@ class Avengers {
 
 	@Override
 	public String toString() {
-		return "Avengers [본명=" + name + ", 닉네임=" + heroName + ", "
-				+ "능력=" + weapon +"]";
+		return "Avengers [본명 = " + name + ", 닉네임 = " + heroName + ", "
+				+ "능력 = " + weapon +"]";
+	}
+	
+	// chatGpt 이용한 것이므로 다시 찾아서 작성할 것
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Avengers avengers = (Avengers) obj;
+        return Objects.equals(name, avengers.name) &&
+               Objects.equals(heroName, avengers.heroName) &&
+               Objects.equals(weapon, avengers.weapon);
+    }
+    
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, heroName, weapon);
 	}
 }
 
@@ -42,9 +58,9 @@ public class QuHashSet {
 
 		Avengers hero1 = new Avengers("토니스타크", "아이언맨", "Mark-48 수트");
 		Avengers hero2 = new Avengers("스티브로져스", "캡틴아메리카", "비브라늄 방패");
-		Avengers hero3 = new Avengers("브루스배너", "헐크", "강한피부&점프");
+		Avengers hero3 = new Avengers("브루스배너", "헐크", "강한피부 & 점프");
 		Avengers hero4 = new Avengers("토니스타크", "아이언맨", "Mark-48 수트");
-		
+
 		set.add(hero1);
 		set.add(hero2);
 		set.add(hero3);
@@ -54,19 +70,27 @@ public class QuHashSet {
 		for(Avengers av : set) {
 			System.out.println(av.toString());			
 		}
+
+		// 이름으로 검색
+		Scanner scan = new Scanner(System.in);
+		System.out.println("검색할 영웅의 이름을 입력하세요: ");
+		String searchName = scan.nextLine();
+
+		boolean found = false;
+		Iterator<Avengers> itr = set.iterator();
+		
+		while (itr.hasNext()) {
+			Avengers avenger = itr.next();
+			if (searchName.contains(avenger.name)) {
+				System.out.println(avenger + "\n요청하신 정보를 찾았습니다.");
+				found = true;
+				break;
+			}
+		}
+		if (!found) { 
+			System.out.println("해당 영웅은 list에 존재하지 않습니다.");
+		}
+
 	}
-	
-}
 
-
-public void searchInfo() {
-	
-	private ArrayList<Friend> lists;
-	lists = new ArrayList<Avengers>();
-	boolean isFind = false;
-	Scanner scan = new Scanner(System.in);
-	System.out.println("검색할 영웅을 입력하세요.");
-	String searchName = scan.nextLine();
-	
-	Iterator<Avengers> avenger = set;
 }

@@ -92,7 +92,7 @@ public class Ex04HashSet1 {
 		 * 포함여부 확인: set에 해당 인스턴스가 있는지 확인한다.
 		 */
 		System.out.println(set.contains(varString1) ?
-				"varSㅁtring1 있음" : "varString1 없음");
+				"varString1 있음" : "varString1 없음");
 
 		/*
 		 * 인스턴스 삭제 : 인스턴스 참조값을 통해 삭제한다.

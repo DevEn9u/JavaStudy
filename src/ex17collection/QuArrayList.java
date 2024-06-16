@@ -30,27 +30,30 @@ public class QuArrayList {
 		list.add(st4);
 			
 		//1.검색할 이름을 입력받음
-		Scanner scan = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("검색할 이름을 입력하세요: ");
-		String searchName = scan.nextLine();
+		String removeName = scanner.nextLine();
 
 		//2.확장for문으로 컬렉션 전체를 접근
 		for(Student student : list) {
-			if(searchName.equals(student.getName())) {
-				System.out.println("오버라이딩 한 equals() 호출됨: " + searchName);
+			int index = list.indexOf(student);
+			if(removeName.equals(student.getName())) {
+				System.out.println("오버라이딩 한 equals() 호출됨: " + removeName);
 				System.out.println("[검색되었습니다]");
 				//3.검색결과 유/무에 따라 
 				//검색결과 있을때…검색된 데이터 삭제
-				list.remove(student);
-				//4.전체정보 출력
-				System.out.println("[삭제후 정보출력]");
-				System.out.print(list.toString());
+				list.remove(index);
 				break;
 			}
 			//검색결과 없을때...검색결과가 없다고 출력
 			else
 				System.out.println("[검색 결과가 없습니다.]");
-			 	break;
+		}
+		
+		//4.전체정보 출력
+		System.out.println("[삭제후 정보출력]");
+		for(Object ob : list) {
+			System.out.println(ob);
 		}
 
 	}
