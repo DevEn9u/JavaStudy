@@ -1,5 +1,6 @@
 package ex16exception;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Friend, Univ, High클래스는 data 저장용
@@ -102,7 +103,7 @@ class UnivFriend extends Friend {
 }
 
 // 메인클래스
-public class Ex07MyFriendInfoBook {
+public class QuMyFriendInfoBook {
 
 	/*
 	 * 메뉴를 출력하는 용도의 메서드로 매개변수, 반환타입이 없는 형태로 정의한다.
@@ -141,34 +142,41 @@ public class Ex07MyFriendInfoBook {
 		   경우에는 주로 while문을 사용한다.
 		 */
 		while(true) {
-			// 1. 메뉴를 출력
-			menuShow();
+			try {
+				// 1. 메뉴를 출력
+				menuShow();
 
-			// 2. 사용자로부터 수행할 기능의 메뉴를 입력받음
-			int choice = scan.nextInt();
-			// 3. 선택한 번호에 따라 메서드를 호출
-			switch (choice) {
-			case 1:
-			case 2:
-				handler.addFriend(choice);
-				break;
-			case 3:
-				handler.showAllData();
-				break;
-			case 4:
-				handler.showSimpleData();
-				break;
-			case 5:
-				handler.searchInfo();
-				break;
-			case 6:
-				handler.deleteInfo();
-				break;
-			case 7:
-				System.out.println("프로그램 종료");
-				// main 메서드가 종료된다는 것은 프로그램 전체의 종료로 이어진다.
-				return;
-			} // switch 끝
+				// 2. 사용자로부터 수행할 기능의 메뉴를 입력받음
+				int choice = scan.nextInt();
+				// 3. 선택한 번호에 따라 메서드를 호출
+				switch (choice) {
+				case 1:
+				case 2:
+					handler.addFriend(choice);
+					break;
+				case 3:
+					handler.showAllData();
+					break;
+				case 4:
+					handler.showSimpleData();
+					break;
+				case 5:
+					handler.searchInfo();
+					break;
+				case 6:
+					handler.deleteInfo();
+					break;
+				case 7:
+					System.out.println("프로그램 종료");
+					// main 메서드가 종료된다는 것은 프로그램 전체의 종료로 이어진다.
+					return;
+				} // switch 끝
+			}
+			catch (InputMismatchException e) {
+				System.out.println("예외발생] 메뉴는 정수로만 입력하세요.");
+				// 버퍼에 남아있는 엔터키(문자)를 제거한다. -> 무한루프 막음
+				scan.nextLine();
+			}
 		} // while 끝
 	} // main 끝
 } // class 끝
@@ -190,7 +198,7 @@ class FriendInfoHandler {
 	   ++(증감연산자)로 1씩 증가시킨다.
 	 */
 	private int numOfFriends;
-	
+
 	// 생성자
 	public FriendInfoHandler(int num) {
 		// 정보저장을 위한 인스턴스 배열(Friend 타입)을 생성
@@ -198,7 +206,7 @@ class FriendInfoHandler {
 		// 배열의 인덱스는 0부터 시작이므로 이와 같이 초기화
 		numOfFriends = 0;
 	}
-	
+
 	// 연락처 정보를 추가하기 위한 메서드
 	public void addFriend(int choice) {
 		// 고등 or 대학 모두 기본정보가 있으므로 먼저 입력받는다.
@@ -207,7 +215,7 @@ class FriendInfoHandler {
 		System.out.print("이름: "); iName = scan.nextLine();
 		System.out.print("전화번호: "); iPhone = scan.nextLine();
 		System.out.print("주소: "); iAddr = scan.nextLine();
-		
+
 		// 입력선택에 따라 고등 혹은 대학친구로 분기하여 입력받는다.
 		if (choice == 1) {
 			// 고등친구인 경우 별명을 추가로 입력받은 후
@@ -228,10 +236,10 @@ class FriendInfoHandler {
 			myFriends[numOfFriends++] =
 					new UnivFriend(iName, iPhone, iAddr, iMajor);
 		}
-		
+
 		System.out.println("친구정보 입력이 완료되었습니다.");
 	} /// end of addFriend
-	
+
 	/*
 	 * 저장된 친구의 정보를 출력하기 위한 멤버메서드
 	 * 1) 친구정보를 추가할 때 High 혹은 Univ 인스턴스를 배열에 저장한다.
@@ -244,7 +252,7 @@ class FriendInfoHandler {
 	 * 5) 즉 저장된 인스턴스는 Friend 타입이지만 오버라이딩을 통해 별도의
 	 *    형변환이 필요하지 않다. 항상 원하는 정보를 간단히 출력할 수 있다.
 	 */
-	
+
 	// 저장된 연락처의 간략정보(2가지)만 출력
 	public void showAllData() {
 		for(int i = 0; i < numOfFriends; i++) {
@@ -262,7 +270,7 @@ class FriendInfoHandler {
 		 메서드를 바로 호출할 수 없으므로 아래와 같이 일일이 확인한 후
 		 강제형변환(다운캐스팅)해야 한다.
 		 또한 상속의 구조가 복잡해질수록 더 많은 조건식을 추가해야 한다.
-		 
+
 		for(int i = 0; i < numOfFriends; i++) {
 			if(myFriends[i] instanceof UnivFriend) {
 				((UnivFriend) myFriends[i]).showBasicInfo();
@@ -272,7 +280,7 @@ class FriendInfoHandler {
 			}
 		}
 		 */
-		
+
 		/*
 		 * 오버라이딩을 이용하면 상속의 구조가 복잡해지더라도 아래와 같이
 		   출력문장 한 줄이면 간단하게 처리할 수 있다.
@@ -280,10 +288,10 @@ class FriendInfoHandler {
 		for(int i = 0; i < numOfFriends; i++) {
 			myFriends[i].showBasicInfo();
 		}
-		
+
 		System.out.println("==간략정보가 출력되었습니다.==");
 	}
-	
+
 	// 연락처 정보 검색
 	public void searchInfo() {
 		// 검색결과 확인용
@@ -291,7 +299,7 @@ class FriendInfoHandler {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("검색할 이름을 입력하세요.");
 		String searchName = scan.nextLine();
-		
+
 		// 배열에 저장된 연락처의 개수만큼 반복
 		for (int i = 0; i < numOfFriends; i++) {
 			/*
@@ -310,7 +318,7 @@ class FriendInfoHandler {
 		if(isFind == false)
 			System.out.println("찾는 정보가 없습니다.");
 	} ///// end of searchInfo
-	
+
 	// 연락처 정보 삭제
 	public void deleteInfo() {
 		Scanner scan = new Scanner(System.in);
@@ -322,7 +330,7 @@ class FriendInfoHandler {
 		   시작이므로 -1을 초기값으로 지정한다.
 		 */
 		int deleteIndex = -1;
-		
+
 		// 삭제할 인스턴스를 찾기 위해 반복
 		for(int i = 0; i < numOfFriends; i++) {
 			// 일치하는 이름이 있는지 확인, comparTo로 비교시 값이 같으면 0
@@ -343,7 +351,7 @@ class FriendInfoHandler {
 				break;
 			}
 		}
-		
+
 		if(deleteIndex == -1) {
 			System.out.println("==삭제된 데이터가 없습니다==");
 		}
@@ -358,7 +366,7 @@ class FriendInfoHandler {
 			}
 			System.out.println("==데이터(" + deleteIndex
 					+ "번)가 삭제되었습니다.==");
-			
+
 		}
 	}
 }
