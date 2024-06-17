@@ -201,7 +201,7 @@ class FriendInfoHandler {
 
 	// 생성자
 	public FriendInfoHandler(int num) {
-		// 정보저장을 위한 인스턴스 배열(Friend 타입)을 생성
+		// 정보저장을 위한 인스턴스 배열(fFriend 타입)을 생성
 		myFriends = new Friend[num];
 		// 배열의 인덱스는 0부터 시작이므로 이와 같이 초기화
 		numOfFriends = 0;
