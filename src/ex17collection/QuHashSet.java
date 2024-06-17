@@ -33,17 +33,20 @@ class Avengers {
 				+ "능력 = " + weapon +"]";
 	}
 	
-	// chatGpt 이용한 것이므로 다시 찾아서 작성할 것
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+    	System.out.println("equals 호출됨");
         Avengers avengers = (Avengers) obj;
-        return Objects.equals(name, avengers.name) &&
-               Objects.equals(heroName, avengers.heroName) &&
-               Objects.equals(weapon, avengers.weapon);
+		if(avengers.name.equals(this.name)
+				&& avengers.heroName.equals(this.heroName)
+				&& avengers.weapon.equals(this.weapon)) {
+			return true;
+		}
+		else {
+			// 다른 인스턴스라면 false를 반환하고, set에 저장한다.
+			return false;
+		}
     }
-    
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, heroName, weapon);

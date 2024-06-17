@@ -36,9 +36,9 @@ public class QuArrayList {
 
 		//2.확장for문으로 컬렉션 전체를 접근
 		for(Student student : list) {
-			int index = list.indexOf(student);
 			if(removeName.equals(student.getName())) {
-				System.out.println("오버라이딩 한 equals() 호출됨: " + removeName);
+				int index = list.indexOf(student);
+//				System.out.println("오버라이딩 한 equals() 호출됨: " + removeName);
 				System.out.println("[검색되었습니다]");
 				//3.검색결과 유/무에 따라 
 				//검색결과 있을때…검색된 데이터 삭제
