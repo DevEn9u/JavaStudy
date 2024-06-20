@@ -174,7 +174,7 @@ public class E10MyFriendInfoBook {
 } // class 끝
 
 /*
- * 해당 프로그램에서 기능을 담당하는 클래스로 '핸들로' 혹은 '매니저' 클래스라고
+ * 해당 프로그램에서 기능을 담당하는 클래스로 '핸들러' 혹은 '매니저' 클래스라고
    부른다.
  */
 class FriendInfoHandler {
