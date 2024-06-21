@@ -48,7 +48,7 @@ class NormalThread extends Thread {
 			/*
 			 * 10번 반복중 2초씩 block 상태로 들어가므로, 총 20초간 반복된다.			   반복 횟수와 쓰레드명을 출력한다.
 			 */
-			System.out.printf("%s]i = %d%n", getName(), i);
+			System.out.printf("우왕%s]i = %d%n", getName(), i);
 			sleep(2000);
 		}
 	}
